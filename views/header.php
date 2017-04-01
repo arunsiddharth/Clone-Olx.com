@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html>
@@ -28,7 +29,6 @@
                 </div>
                 
 <?php 
-
       if(!empty($_SESSION['id'])){
          $conn=dbconnect();
          $query="SELECT * FROM users WHERE id=".$_SESSION['id'];
