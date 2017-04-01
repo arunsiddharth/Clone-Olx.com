@@ -1,4 +1,4 @@
-<form action="register.php" method = "post">
+<form action="register.php" method = "POST">
     <fieldset>
         E-mail address : <input required="required" type="text" name="email"/><br/>
         Name : <input required="required" type="text" name="name"/><br/>

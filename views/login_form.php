@@ -1,4 +1,4 @@
-<form action="login.php" method="post">
+<form action="login.php" method="POST">
     <fieldset>
         E-mail : <input type="text" name="email" autofocus required="required"/><br>
         Password : <input type="password" name="password" required="required"/><br/>

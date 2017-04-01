@@ -15,7 +15,7 @@
     </head>
 
     <body>
-<!--
+
         <div class="container">
 
             <div id="top">
@@ -30,5 +30,4 @@
                 <?php endif ?>
             </div>
 
-            <div id="middle">
--->
+        <div id="middle">

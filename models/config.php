@@ -54,4 +54,13 @@
         $dbname = "project2";
         return mysqli_connect($server, $username, $password, $dbname);
     }
+    function item_port($result){
+        $items="";
+        while($row=$result->fetch_assoc()){
+            $items = $items."<tr><td><img alt='thumbnail' src='".$row['image']."'/></td><td>".$row['title']."</td><td>".$row['price']."</td><td>".$row['college']."</td><td>".$row['category']."</td><td>".$row['date']."</td><td><a href='aboutseller.php?".$row['user_id']."'>Contact Seller</a></td></tr>";
+        }
+    }
+    
 ?>
+title price college category
+date contact_seller
