@@ -1,6 +1,8 @@
 <?php
-    require("../models/config.php");
-    
+    include("../models/config.php");
+    if(!empty($_SESSION['id'])){
+    	redirect('portofolio.php');
+    }
     if($_SERVER["REQUEST_METHOD"]=="GET"){
         render("login_form.php", ["title" => "Log In"]);
     }
@@ -21,13 +23,11 @@
 		            redirect("portofolio.php");
 		        }
 		        else{
-		            render("login_form.php",["title"=>"Log In"]);
-		            echo "WRONG PASSWORD";
+		            apologize("WRONG PASSWORD");
 		        }
 		    }
 		    else{
-		        render("login_form.php",["title"=>"Log In"]);
-		        echo "WRONG DETAILS";
+		        apologize("WRONG DETAILS");
 		    }
 		}
     }

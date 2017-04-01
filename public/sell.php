@@ -25,23 +25,48 @@
             $contact = mysqli_real_escape_string($conn, $_POST['contact']);
             $donate = mysqli_real_escape_string($conn, $_POST['donate']);
             $price = mysqli_real_escape_string($conn, $_POST['price']);
-            //$image = mysqli_real_escape_string($conn, $_POST['image']);
+            $image = mysqli_real_escape_string($conn, $_POST['image']);
             $file_name = "uploads/asd1283.jpg";
-            //for image
-            if(!empty($_FILES['image']['name'])){
-                $target_dir = "uploads/";
-                $file_name =basename($_FILES['image']['name']);
-                $target_file = $target_dir.$file_name;
-                $uploadok = 1;
-                $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-                move_uploaded_file($_FILES['image']['tmp_name'],$target_file);
-            }
             //donation
             if(strpos($donate,"donate")!==FALSE ||empty($price)){
                 $price = "On donation";
             }
+            
+            //for image
+            $target_dir = "uploads/";
+            $target_file = $target_dir . basename($_FILES["image"]["name"]);
+            echo $target_file;
+            $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+            
+            if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+                // Check if file already exists
+                
+                if (file_exists($target_file)) {
+                    apologize("File already exists.");
+                }
+                // Check file size
+                else if ($_FILES["image"]["size"] > 1000000) {
+                    apologize("File is too large.");
+                }
+                // Check file extension
+            
+                else if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" &&
+                    $imageFileType != "gif" ) {
+                    apologize("Only JPG, JPEG, PNG & GIF files are allowed.");
+                }
+                // Upload file to server
+                else {
+                    if (!move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                     apologize("There was an error uploading your file.");
+                    }
+                }
+            }
+            else {
+            $target_file="uploads/asd1283.jpg";
+            }
+            
             //query
-            $query="INSERT INTO items(user_id,title,price,college,category,date,contact,description,image) VALUES(".$_SESSION['id'].",'".$title."','".$price."',".$college."','".$category."',".date("Y-m-d").",'".$contact."','".$description."','".$file_name."')";
+            $query="INSERT INTO items(user_id,title,price,college,category,date,contact,description,image) VALUES(".$_SESSION['id'].",'".$title."','".$price."','".$college."','".$category."','".date("Y-m-d")."','".$contact."','".$description."','".$target_file."')";
             $conn->query($query);
             redirect("portofolio.php");
         }

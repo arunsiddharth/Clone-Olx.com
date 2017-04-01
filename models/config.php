@@ -55,11 +55,15 @@
         return mysqli_connect($server, $username, $password, $dbname);
     }
     function item_maker($result){
-        $items="<table><tr><th>title</th><th>price</th><th>college</th><th>category</th><th>date</th><th>contact_seller</th></tr>";
+        $items="<table><tr><th>image</th><th>title</th><th>price</th><th>college</th><th>category</th><th>date</th><th>contact_seller</th></tr>";
         while($row=$result->fetch_assoc()){
-            $items = $items."<tr><td><img alt='thumbnail' src='".$row['image']."'/></td><td>".$row['title']."</td><td>".$row['price']."</td><td>".$row['college']."</td><td>".$row['category']."</td><td>".$row['date']."</td><td><a href='aboutseller.php?id=".$row['id']."'>Contact Seller</a></td></tr>";
+            $items = $items."<tr><td><img width=100px height=50px  alt='thumbnail' src='".$row['image']."'/></td><td>".$row['title']."</td><td>".$row['price']."</td><td>".$row['college']."</td><td>".$row['category']."</td><td>".$row['date']."</td><td><a href='aboutseller.php?id=".$row['id']."'>Contact Seller</a></td></tr>";
         }
         $items=$items."</table>";
+        return $items;
     }
-    
+    function apologize($message)
+    {
+        render("apology.php", ["message" => $message]);
+    }
 ?>

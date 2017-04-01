@@ -6,13 +6,17 @@
     if(!empty($_GET['category']))
     {
         $item=$_GET['category'];
-        if(strpos("$_GET['category']","all")===FALSE){
+        if(strpos($_GET['category'],"all")===FALSE){
             $query=$query." WHERE category='".$item."'";
         }
     }
+    if(!empty($_GET['college'])){
+        $query=$query." WHERE college='".$_GET['college']."'";
+    }
     $result =$conn->query($query);
     if($result->num_rows>0){
-        echo item_maker($result);
+        $itemsu = item_maker($result);
+        echo $itemsu;
     }
     else{
         echo "No Items in the store Currently related to This Category";

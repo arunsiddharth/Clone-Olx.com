@@ -3,7 +3,11 @@
 <html>
 
     <head>
-
+<style>
+		table, th, td {
+			border: 1px solid cyan;
+		}
+		</style>
         <link href="/css/styles.css" rel="stylesheet"/>
         <script src="/js/scripts.js"></script>
         <?php if (isset($title)): ?>
@@ -24,16 +28,20 @@
                 </div>
                 
 <?php 
+
       if(!empty($_SESSION['id'])){
-         include('../models/config.php');
          $conn=dbconnect();
          $query="SELECT * FROM users WHERE id=".$_SESSION['id'];
          $result=$conn->query($query);
          $row=$result->fetch_assoc();
-         echo "<h3>WELCOME,</h3>".$row['name']."</br>";
+         echo "<b>WELCOME,<b><a href='portofolio.php'>".$row['name']."</a></br>";
       }
-      if(in_array($_SERVER['PHP_SELF'],["/portofolio.php","/index.php","/aboutseller.php"])){
+      if(in_array($_SERVER['PHP_SELF'],["/portofolio.php","/aboutseller.php"])){
           echo "<a href='store.php'>Go To Store</a>";
+      }
+      if(!in_array($_SERVER['PHP_SELF'],["/sell.php","/login.php","/register.php","/index.php"]))
+      {
+          echo "<a href='sell.php'>Sell Item</a>";
       }
       if(!empty($_SESSION['id'])){
           echo "<a href='logout.php'>Logout</a>";
@@ -41,15 +49,15 @@
 ?>
 
 <?php if (in_array($_SERVER['PHP_SELF'],["/store.php"])): ?>
-                    <ul>
-                        <li><a href="../public/store.php?category=all">All</a></li>
-                        <li><a href="../public/store.php?category=books">Books</a></li>
-                        <li><a href="../public/store.php?category=clothing">Electronic</a></li>
-                        <li><a href="../public/store.php?category=electronics">All</a></li>
-                        <li><a href="../public/store.php?category=furniture">All</a></li>
-                        <li><a href="../public/store.php?category=sport">All</a></li>
-                        <li><a href="../public/store.php?category=vehicles">All</a></li>
-                        <li><a href="../public/store.php?category=others">All</a></li>
+                    <ul style="list-style: none;">
+                        <li><a href="store.php?category=all">All</a></li>
+                        <li><a href="store.php?category=books">Books</a></li>
+                        <li><a href="store.php?category=clothing">Clothing</a></li>
+                        <li><a href="store.php?category=electronics">Electronic</a></li>
+                        <li><a href="store.php?category=furniture">Furniture</a></li>
+                        <li><a href="store.php?category=sport">Sport</a></li>
+                        <li><a href="store.php?category=vehicles">Vehicles</a></a></li>
+                        <li><a href="store.php?category=others">Others</a></li>
                         <form action="store.php" method="GET">
                             <select name="college" required="required" placeholder="Select College">
                             <option value="IIT DELHI">IIT DELHI</option>
@@ -67,4 +75,4 @@
                 
             </div>
 
-        <div id="middle">
+        <div id="middle"><center>
